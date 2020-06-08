@@ -910,21 +910,21 @@
 							$.get("/home/articles",function(data){
 								var technologies = data.technology;
 								$.each(technologies,function(index,obj){
-									$("#technologies").append('<a target="_blank" href="'+obj.url+'">'
+									$("#technologies").append('<a target="_blank" href="/static/template/'+obj.url+'">'
 											+'<li class="flex-box"><div class="ellipsis-line" title="'+obj.title+'"></div>'
 											+'<div class="date">'+obj.createDate+'</div></li></a>');
 								});
 								
 								var industries = data.industry;
 								$.each(industries,function(index,obj){
-									$("#industries").append('<a target="_blank" href="'+obj.url+'">'
+									$("#industries").append('<a target="_blank" href="/static/template/'+obj.url+'">'
 											+'<li class="flex-box"><div class="ellipsis-line" title="'+obj.title+'"></div>'
 											+'<div class="date">'+obj.createDate+'</div></li></a>');
 								});
 								
 								var subjects = data.subject;
 								$.each(subjects,function(index,obj){
-									$("#subjects").append('<a target="_blank" href="'+obj.url+'">'
+									$("#subjects").append('<a target="_blank" href="/static/template/'+obj.url+'">'
 											+'<li class="flex-box"><div class="ellipsis-line" title="'+obj.title+'"></div>'
 											+'<div class="date">'+obj.createDate+'</div></li></a>');
 								});

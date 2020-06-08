@@ -26,7 +26,7 @@ public interface IArticleService {
 	PageBean<Article> findPageList(ArticleQuery query);
 
 	//根据id删除文章数据
-	void del(Long id);
+	void del(Long id, HttpServletRequest req);
 
 	//保存方法
 	void save(Article article,HttpServletRequest req);

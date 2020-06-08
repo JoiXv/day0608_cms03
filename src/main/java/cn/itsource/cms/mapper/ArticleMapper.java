@@ -38,5 +38,8 @@ public interface ArticleMapper {
 
 	//根据学科类型code查询文章
 	List<Article> findListByCode(String code);
+
+	//查询单条
+	Article findOne(Long id);
 	
 }

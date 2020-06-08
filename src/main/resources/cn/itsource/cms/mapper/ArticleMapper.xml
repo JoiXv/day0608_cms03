@@ -71,4 +71,9 @@
 		<!-- limit 0,8保持页面的样式不变，每页最多显示8条数据 -->
 	</select>
 	
+	<!-- Article findOne(Long id); -->
+	<select id="findOne" resultType="Article">
+		select * from t_article where id = #{id}
+	</select>
+	
 </mapper>

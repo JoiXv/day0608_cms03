@@ -86,9 +86,9 @@ public class ArticleController {
   	 */
   	@RequestMapping("/del")
   	@ResponseBody
-  	public AjaxResult del(Long id) {
+  	public AjaxResult del(Long id,HttpServletRequest req) {
   		try{
-  			service.del(id);
+  			service.del(id,req);
 	  		return new AjaxResult();
 		} catch (Exception e) {
 			return new AjaxResult(false,"操作失败！");

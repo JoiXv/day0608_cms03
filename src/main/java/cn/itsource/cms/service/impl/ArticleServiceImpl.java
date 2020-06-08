@@ -1,5 +1,6 @@
 package cn.itsource.cms.service.impl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +67,16 @@ public class ArticleServiceImpl implements IArticleService{
 	}
 
 	@Override
-	public void del(Long id) {
+	public void del(Long id,HttpServletRequest req) {
+		//先根据id查询一个article对象
+		Article article = mapper.findOne(id);
 		mapper.del(id);
+		String url = article.getUrl();
+		String path = req.getServletContext().getRealPath("/static/template");
+		File file = new File(path, url);
+		if (file.exists()) {
+			file.delete();
+		}
 	}
 
 	@Override
@@ -80,12 +89,21 @@ public class ArticleServiceImpl implements IArticleService{
 		//将文件的名称设置回对象中
 		article.setUrl(url);
 		
-		if (article.getId() == null) {//更新操作
+		if (article.getId() == null) {//添加操作
 			mapper.add(article);
-		}else {//添加操作
+		}else {//更新操作
+			//查找对应id的Article对象
+			Article one = mapper.findOne(article.getId());
+			//执行更新操作
 			mapper.update(article);
-		}
-	}
+			
+			File file = new File(templatePath, one.getUrl());
+			//如果文件存在，删除以前的html页面
+			if (file.exists()) {
+				file.delete();
+			}
+		}//else
+	}//save
 
 	//前台首页：查询所有文章的业务逻辑
 	@Override
