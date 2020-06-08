@@ -59,4 +59,16 @@
 		update t_article set title=#{title},url=#{url},typeId=#{typeId},clickCount=#{clickCount},
 		content=#{content},createDate=#{createDate},enable=#{enable} where id=#{id}
 	</update> 
+	
+	<!-- List<Article> findListByCode(String constent); -->
+	<select id="findListByCode" resultType="Article">
+		select * from
+		t_article a1 inner join t_article_type a2
+		on a1.typeId = a2.id
+		where a2.code = #{code} and a1.enable = 1
+		order by a1.createDate desc
+		limit 0,8
+		<!-- limit 0,8保持页面的样式不变，每页最多显示8条数据 -->
+	</select>
+	
 </mapper>

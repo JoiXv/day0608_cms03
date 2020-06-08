@@ -887,38 +887,48 @@
 								<div class="sectitle">技术文章</div>
 								<a target="_blank" href=""  class="more">更多</a>
 							</div>
-							<ul>
-							
-								
-							
-							</ul>
+							<ul id="technologies"></ul>
 						</div>
 						<div class="wrapper">
 							<div class="sectitle-bar flex-box">
 								<div class="sectitle">行业新闻</div>
 								<a target="_blank" href=""  class="more">更多</a>
 							</div>
-							<ul>
-							
-									
-							
-							</ul>
+							<ul id="industries"></ul>
 						</div>
 						<div class="wrapper">
 							<div class="sectitle-bar flex-box">
 								<div class="sectitle">学科资讯</div>
 								<a target="_blank" href=""  class="more">更多</a>
 							</div>
-							<ul>
-								<a target="_blank" href=""><li class="flex-box"><div class="ellipsis-line" title="Java脑筋急转弯Java脑筋急转弯Java脑筋急转弯Java脑筋急转弯Java脑筋急转弯"></div><div class="date">2018.18.18</div></li></a>
-							</ul>
+							<ul id="subjects"></ul>
 						</div>
 					</div>
 					<script>
 						$(function() {
 							//页面加载完成就发送请求/home/articles
 							$.get("/home/articles",function(data){
-								console.debug(data);
+								var technologies = data.technology;
+								$.each(technologies,function(index,obj){
+									$("#technologies").append('<a target="_blank" href="'+obj.url+'">'
+											+'<li class="flex-box"><div class="ellipsis-line" title="'+obj.title+'"></div>'
+											+'<div class="date">'+obj.createDate+'</div></li></a>');
+								});
+								
+								var industries = data.industry;
+								$.each(industries,function(index,obj){
+									$("#industries").append('<a target="_blank" href="'+obj.url+'">'
+											+'<li class="flex-box"><div class="ellipsis-line" title="'+obj.title+'"></div>'
+											+'<div class="date">'+obj.createDate+'</div></li></a>');
+								});
+								
+								var subjects = data.subject;
+								$.each(subjects,function(index,obj){
+									$("#subjects").append('<a target="_blank" href="'+obj.url+'">'
+											+'<li class="flex-box"><div class="ellipsis-line" title="'+obj.title+'"></div>'
+											+'<div class="date">'+obj.createDate+'</div></li></a>');
+								});
+								
 							},"json");
 							
 							// Title proxy.

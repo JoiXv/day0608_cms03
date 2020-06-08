@@ -2,6 +2,8 @@ package cn.itsource.cms.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -104,9 +106,9 @@ public class ArticleController {
   	 */
   	@RequestMapping("/save")
   	@ResponseBody
-  	public AjaxResult save(Article article) {
+  	public AjaxResult save(Article article,HttpServletRequest req) {
   		try {
-  			service.save(article);
+  			service.save(article,req);
   			return new AjaxResult();
 		} catch (Exception e) {
 			return new AjaxResult(false,"操作失败！");

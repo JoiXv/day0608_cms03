@@ -30,11 +30,13 @@ public interface ArticleMapper {
 	//删除
 	void del(Long id);
 
+	//添加
 	void add(Article article);
 
+	//更新
 	void update(Article article);
 
 	//根据学科类型code查询文章
-	List<Article> findListByCode(String tECHNOLOGY);
+	List<Article> findListByCode(String code);
 	
 }

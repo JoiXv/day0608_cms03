@@ -1,6 +1,5 @@
 package cn.itsource.cms.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;

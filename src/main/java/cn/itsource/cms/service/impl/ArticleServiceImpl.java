@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import cn.itsource.cms.mapper.ArticleTypeMapper;
 import cn.itsource.cms.query.ArticleQuery;
 import cn.itsource.cms.service.IArticleService;
 import cn.itsource.cms.util.Constent;
+import cn.itsource.cms.util.FreeMarkerUtil;
 import cn.itsource.cms.util.PageBean;
 
 @Service
@@ -68,7 +71,15 @@ public class ArticleServiceImpl implements IArticleService{
 	}
 
 	@Override
-	public void save(Article article) {
+	public void save(Article article,HttpServletRequest req) {
+		//  获取/static/template的模板路径
+		//增加HttpServletRequest为了获取getRealPath  即模板文件的绝对路径
+		String templatePath = req.getServletContext().getRealPath("/static/template");
+		//生成静态资源
+		String url = FreeMarkerUtil.getFile(templatePath, "article.ftl", article, ".html");
+		//将文件的名称设置回对象中
+		article.setUrl(url);
+		
 		if (article.getId() == null) {//更新操作
 			mapper.add(article);
 		}else {//添加操作
@@ -76,16 +87,20 @@ public class ArticleServiceImpl implements IArticleService{
 		}
 	}
 
+	//前台首页：查询所有文章的业务逻辑
 	@Override
 	public Map<String, Object> articles() {
 		Map<String,Object> map = new HashMap<>();//jdk8以后可以这样使用,jdk7不行，需要将HashMap<>()中的泛型补齐
 		//技术文章
 		List<Article> articles1 = mapper.findListByCode(Constent.TECHNOLOGY);
+		map.put("technology", articles1);
 		//行业新闻
 		List<Article> articles2 = mapper.findListByCode(Constent.INDUSTRY);
+		map.put("industry", articles2);
 		//学科咨询
 		List<Article> articles3 = mapper.findListByCode(Constent.SUBJECT);
-		return null;
+		map.put("subject", articles3);
+		return map;
 	}
 	
 }

@@ -2,6 +2,8 @@ package cn.itsource.cms.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import cn.itsource.cms.domain.Article;
 import cn.itsource.cms.query.ArticleQuery;
 import cn.itsource.cms.util.PageBean;
@@ -23,10 +25,13 @@ public interface IArticleService {
 	 */
 	PageBean<Article> findPageList(ArticleQuery query);
 
+	//根据id删除文章数据
 	void del(Long id);
 
-	void save(Article article);
-
+	//保存方法
+	void save(Article article,HttpServletRequest req);
+	
+	//查询满足的文章articles
 	Map<String, Object> articles();
 	
 }
