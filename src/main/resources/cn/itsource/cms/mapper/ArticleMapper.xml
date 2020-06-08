@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.itsource.cms.mapper.ArticleMapper">
+		
+		<!-- 查询所有文章 -->
+		<select id="findAll" resultType="article">
+			select * from t_article
+		</select>
+		
+		<!-- 查询总数量 -->
+		<select id="findPageCount" resultType="long" parameterType="ArticleQuery">
+			select count(*) from t_article 
+		</select>
+		
+		<!-- 分页查询文章 -->
+		<select id="findPageList" resultType="Article" parameterType="ArticleQuery">
+			select * from t_article 
+			<include refid="query"></include>
+			limit #{begin},#{pageSize}
+		</select>
+		
+		<!-- Long findPageCountByQuery(ArticleQuery query); -->
+		<select id="findPageCountByQuery" resultType="long">
+			select count(*) from t_article 
+			<include refid="query"></include>
+		</select>
+		
+		<!-- 抽取sql -->
+		<sql id="query">
+			<where>
+				<if test='title != null and !"".equals(title.trim())'>
+					and title like concat('%',trim(#{title}),'%')
+				</if>
+				<if test="typeId != null">
+					and typeId = #{typeId}
+				</if>
+				<if test="enable != null">
+					and enable = #{enable}
+				</if>
+			</where>
+		</sql>
+		
+	<!-- 	void del(Long id); -->
+	<delete id="del" parameterType="long">
+		delete from t_article where id = #{id}
+	</delete>
+		
+		
+	<!-- void add(Article article); -->
+	<insert id="add" parameterType="article">
+		insert into t_article(title,url,typeId,clickCount,content,createDate,enable)
+		values(#{title},#{url},#{typeId},#{clickCount},#{content},#{createDate},#{enable})
+	</insert>
+
+	<!-- void update(Article article); -->
+	<update id="update" parameterType="article">
+		update t_article set title=#{title},url=#{url},typeId=#{typeId},clickCount=#{clickCount},
+		content=#{content},createDate=#{createDate},enable=#{enable} where id=#{id}
+	</update> 
+</mapper>
