@@ -76,4 +76,9 @@
 		select * from t_article where id = #{id}
 	</select>
 	
+	<!-- Article findOneByUrl(String url); -->
+	<select id="findOneByUrl" resultType="Article">
+		select * from t_article where url = #{url}
+	</select>
+	
 </mapper>

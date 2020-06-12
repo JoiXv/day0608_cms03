@@ -93,6 +93,14 @@
 				$("#saveForm").clearForm();
 				//手动清空隐藏域id
 				$("#saveForm input[name='id']").val("");
+				
+				//回显富文本的值
+				var ue = UE.getEditor('container');
+				ue.ready(function() {
+				    //设置默认值
+				    ue.setContent("");
+				});
+				
 				//手动设置启用状态：clearForm()会将启用状态也清空
 				$("#enable").prop("checked",true);
 				//显示模态框
@@ -106,6 +114,14 @@
 				$("#saveForm").clearForm();
 				//手动清空隐藏域id
 				$("#saveForm input[name='id']").val("");
+				
+				//回显富文本的值
+				var ue = UE.getEditor('container');
+				ue.ready(function() {
+				    //设置默认值
+				    ue.setContent(row.content);
+				});
+				
 				//手动设置启用状态：clearForm()会将启用状态也清空
 				$("#saveModel #enable").prop("checked",true);
 				//回显数据

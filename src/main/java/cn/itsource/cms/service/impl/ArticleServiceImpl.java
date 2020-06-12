@@ -46,7 +46,6 @@ public class ArticleServiceImpl implements IArticleService{
 	 */
 	@Override
 	public PageBean<Article> findPageList(ArticleQuery query) {
-		//System.out.println(query);
 		//1、先查询数量（修改ArticleMapper接口中的查询为查询总数量的高级查询）
 		Long totals = mapper.findPageCountByQuery(query);
 		if (totals == 0l) {//根据查询条件没匹配到对象，返回一个空的默认PageBean
@@ -120,5 +119,18 @@ public class ArticleServiceImpl implements IArticleService{
 		map.put("subject", articles3);
 		return map;
 	}
+
 	
+	//更新点击次数
+	@Override
+	public Article updateArticleClickCount(String url) {
+		//1、根据url查询文章article
+		Article article = mapper.findOneByUrl(url);
+		//2、查询article点击次数，设置点击次数+1
+		article.setClickCount(article.getClickCount()+1);
+		//3、执行article的更新操作
+		mapper.update(article);
+		return article;
+	}
+
 }

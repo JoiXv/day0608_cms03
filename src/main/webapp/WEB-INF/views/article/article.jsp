@@ -43,8 +43,8 @@
 			</div>
 			
 			<!-- 添加或者修改的模态框 -->
-	<div class="modal fade" id="saveModel">
-		<div class="modal-dialog">
+	<div class="modal fade bs-example-modal-lg" id="saveModel">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content message_align">
 			<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -88,7 +88,9 @@
 				                <div class="form-group row">
 				                  	<label for="content" class="control-label col-md-3">文章内容</label>
 				                  	<div class="col-md-9">
-				                   	 	<textarea class="form-control" style="resize: none" rows="4" name="content"></textarea>
+				                   	 	<!-- <textarea class="form-control" style="resize: none" rows="4" name="content"></textarea> -->
+				                   	 	<!-- 加载编辑器的容器 -->
+										<script id="container" name="content" type="text/plain"></script>
 				                  	</div>
 				                </div>
 				             </form>
@@ -145,6 +147,18 @@
 		<%@include file="/WEB-INF/views/common/buttomStatic.jsp"  %>
 		<!-- 引入自行编写的article页面的js代码 -->
 		<script type="text/javascript" src="/static/system/js/article.js"></script>
+		
+		<!-- 配置文件 -->
+    	<script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
+    	<!-- 编辑器源码文件 -->
+    	<script type="text/javascript" src="/static/ueditor/ueditor.all.js"></script>
+	    <!-- 实例化编辑器 -->
+	    <script type="text/javascript">
+	        var ue = UE.getEditor('container',{
+	        	initialFrameHeight: 200,  //调整
+	        	zIndex: 8888
+	        });
+	    </script>
 		
   	</body>
 </html>

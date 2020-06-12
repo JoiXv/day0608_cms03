@@ -41,5 +41,8 @@ public interface ArticleMapper {
 
 	//查询单条
 	Article findOne(Long id);
+
+	//根据url查询Article数据
+	Article findOneByUrl(String url);
 	
 }

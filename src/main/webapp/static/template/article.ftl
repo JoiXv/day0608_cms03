@@ -128,7 +128,7 @@
 					<div class="flex-box" id="center-left">
 						<div class="wrapper majority article" id="article">
 							<div class="info">
-								<span><span b>创建时间：</span>${createDate?date!}</span><span><span b>浏览: </span>${clickCount}</span>
+								<span><span b>创建时间：</span>${createDate?date!}</span><span><span b>浏览: </span><span id="clickCount">${clickCount}</span></span>
 							</div>
 							<div class="title">${title}</div>
 							<div class="content">
@@ -167,4 +167,15 @@
 		<script src="/static/home/js/imagesloaded.pkgd.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/static/home/js/2-up-vertical(PC)_20190509.js" type="text/javascript" charset="utf-8"></script>
 	</foot>
+	<script type="text/javascript">
+	$(function(){
+		//获取地址信息
+		var path = window.location.href;
+		var url = path.substring(path.lastIndexOf("/")+1);
+		//ajax异步get请求
+		$.get("/home/updateArticleClickCount",{"url":url},function(data){
+			$("#clickCount").text(data.clickCount);//text()和html()都可以使用
+			},"json");
+		});
+	</script>
 </html>

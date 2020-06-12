@@ -29,9 +29,21 @@ public interface IArticleService {
 	void del(Long id, HttpServletRequest req);
 
 	//保存方法
+	/**
+	 * @Description:(根据前端ajax异步请求传入的)
+	 * @param:@param article
+	 * @param:@param req   
+	 * @return:void  
+	 * @author:Joi
+	 * @date:2020年6月8日
+	 * @version:V1.0
+	 */
 	void save(Article article,HttpServletRequest req);
 	
-	//查询满足的文章articles
+	//查询满足条件的文章articles
 	Map<String, Object> articles();
-	
+
+	//前台传来点击时间，实现点击次数的增加更新
+	Article updateArticleClickCount(String url);
+
 }

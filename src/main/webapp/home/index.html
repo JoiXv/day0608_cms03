@@ -31,15 +31,21 @@
 		</script>
 		<div class="frame center">
 			<div class="container swiper-container" id="banner">
-			    <div class="swiper-wrapper">
-					<a target="_blank" href=""  class="swiper-slide swiper-lazy" data-background="/static/home/img/index/banner.png"><div class="swiper-lazy-preloader"></div></a>
-					<a target="_blank" href=""  class="swiper-slide swiper-lazy" data-background="/static/home/img/index/placeholder_1920x350.png"><div class="swiper-lazy-preloader"></div></a>
-					<a target="_blank" href=""  class="swiper-slide swiper-lazy" data-background="/static/home/img/index/banner.png"><div class="swiper-lazy-preloader"></div></a>
-					<a target="_blank" href=""  class="swiper-slide swiper-lazy" data-background="/static/home/img/index/placeholder_1920x350.png"><div class="swiper-lazy-preloader"></div></a>
+			    <div id = "slides" class="swiper-wrapper">
+			    	<!-- 轮播图 -->
 			    </div>
 			    <div class="swiper-pagination"></div>
 				<script>
 					$(function() {
+						
+						$.get("/home/slides",function(data){//function中要接收参数!!!!
+							 $.each(data,function(i,o){
+								$("#slides").append('<a target="_blank" href="#"  class="swiper-slide swiper-lazy"'
+									+' data-background="'+o.path+'">'
+									+'<div  class="swiper-lazy-preloader"></div></a>')
+									
+								});
+						
 						var bannerSwiper = new Swiper ('#banner.swiper-container', {
 						 	autoplay: { disableOnInteraction: false },
 						    loop: true,
@@ -50,6 +56,7 @@
 						    },
 							lazy: true
 					  	});
+								
 					  	$("#banner .swiper-slide")
 						  	.mouseenter(function() {
 						  		bannerSwiper.autoplay.stop();
@@ -57,7 +64,9 @@
 						  	.mouseleave(function() {
 						  		bannerSwiper.autoplay.start();
 						  	});
-					});
+						},"json");//get
+						
+					});//入口函数
 				</script>
 			</div>
 			<div class="container">
@@ -1000,4 +1009,6 @@
 		<script src="/static/home/js/tabsKeel-0.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/static/home/js/jquery.countdown.min.js" type="text/javascript" charset="utf-8"></script>
 	</foot>
+	
+	
 </html>

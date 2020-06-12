@@ -23,10 +23,11 @@ public class AjaxResult {
 	public void setSuccess(Boolean success) {
 		this.success = success;
 	}
-	public String getmString() {
+	public String getMsg() {
 		return msg;
 	}
-	public void setmString(String msg) {
+	public void setMsg(String msg) {
 		this.msg = msg;
 	}
+	
 }
