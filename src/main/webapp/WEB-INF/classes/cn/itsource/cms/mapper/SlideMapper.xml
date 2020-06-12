@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.itsource.cms.mapper.SlideMapper">
+
+	<!-- Long findPageCountByQuery(SlideQuery query); -->
+	<select id="findPageCountByQuery" resultType="long">
+		select count(*) from t_slide
+		<include refid="query"></include>
+	</select>
+	
+	<!-- List<Slide> findPageList(SlideQuery query); -->
+	<select id="findPageList" resultType="Slide">
+		select * from t_slide
+		<include refid="query"></include>
+		limit #{begin},#{pageSize}
+	</select>
+	
+	<!-- 抽取高级查询sql -->
+	<sql id="query">
+		<where>
+			<if test='name != null and !"".equals(name.trim())'>
+				and name like concat('%',trim(#{name}),'%')
+			</if>
+			<if test="enable != null">
+				and enable = #{enable}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- void add(Slide slide); -->
+	<insert id="add">
+		insert into t_slide (name,path,createDate,enable) values (#{name},#{path},#{createDate},#{enable})
+	</insert>
+	
+	<!-- 	Slide findOne(Long id); -->
+	<select id="findOne" resultType="Slide">
+		select * from t_slide where id = #{id}
+	</select>
+	
+	<!-- void update(Slide slide); -->
+	<!-- 动态sql -->
+	<update id="update" parameterType="Slide">
+		update t_slide set
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="path != null">
+				path = #{path},
+			</if>
+				createDate = #{createDate},enable = #{enable}  where  id = #{id}
+	</update>
+	
+	<!-- void del(Long id); -->
+	<delete id="del">
+		delete from t_slide where id = #{id}
+	</delete>
+	
+	<!-- List<Slide> findSlides();   查询启用了的轮播图 -->
+	<select id="findSlides" resultType="Slide">
+		select * from t_slide where enable = 1
+	</select>
+	
+</mapper>
